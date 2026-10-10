@@ -22,7 +22,7 @@
     
 - An **operation** is any executable program or program fragment, from an integer addition to a whole application.
 
-- An operation *f* **upholds a Lamport property P iff, given a trace satisfying P whose final state satisfies
+- An operation *f* **upholds** a Lamport property P iff, given a trace satisfying P whose final state satisfies
   the preconditions of *f*, applying *f* produces a trace satisfying P.  For example, this function upholds the
   safety property that nothing has ever been printed to the console, because given a trace where nothing has been
   printed, a legal application of `identity` maintains that property:
