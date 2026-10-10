@@ -52,9 +52,7 @@
 
 - The upholding of any Lamport property *composes*.  That is, when any two operations *f* and *g* uphold the property, so does *f* followed by *g*.
 
-- An ***X* safe operation** upholds some safety property *X* **even if preconditions are violated**. [^qualification]  For example, when `a` is an array with bounds checking, `a[0] = 3` never modifies a variable not mentioned in the expression, even if `a` is empty (which violates the precondition of `a[0]`).  We might say that the operation is “expression-mutation safe.” 
-
-- Trivially, *X*-safety composes for any *X*.
+- An ***X* safe operation** upholds some safety property *X* **even if preconditions are violated**. [^qualification]  For example, when `a` is an array with bounds checking, `a[0] = 3` never modifies a variable not mentioned in the expression, even if `a` is empty (which violates the precondition of `a[0]`).  We might say that the operation is “expression-mutation safe.” The composition of any two *X*-safe operations is *X*-safe.
 
 [^qualification]: note this important distinction—an operation can uphold the memory safety property but not be memory-safe by this definition, because the former depends on preconditions being satisfied but the latter does not.
 
