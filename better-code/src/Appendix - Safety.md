@@ -62,9 +62,9 @@
 
 - **Type safety** is the property that an instance of one type has never been accessed as an instance of another type.
 
-- **Thread safety** is the property that a data race has never occurred. Sometimes “thread safe” is used to mean that, additionally, deadlock has not occurred. Freedom from deadlock can also be viewed as part of a liveness property guaranteeing forward progress. 
+- **Thread safety** is the property that at no point in the trace can another thread cause a data race. Sometimes “thread safe” is used to mean that, additionally, deadlock has not occurred. Freedom from deadlock can also be viewed as part of a liveness property guaranteeing forward progress. 
 
-- **Data race safety** is the property that a data race does not occur (explicitly excluding freedom from deadlock as a constraint).
+- **Data race safety** is thread safety, but explicitly excluding freedom from deadlock as a constraint.
 
 - **Undefined behavior** is not bounded by any constraints and thus nullifies every safety property.  An operation that can have undefined behavior, or a language that includes such an operation, is never *X* safe for any *X*.  
 
