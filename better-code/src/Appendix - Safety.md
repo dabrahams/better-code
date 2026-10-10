@@ -2,10 +2,29 @@
 
 - **Safety** in engineering is the prevention of harm through system design.
 
+- Per [Leslie Lamport's authoritative definitions](https://lamport.azurewebsites.net/tla/safety-liveness.pdf):
+  - A **behavior** is an infinite sequence of states of some system.  We will call a finite sequence of such
+  - states a **trace**.  (You can turn a *trace* into a *behavior* by repeating its final state forever).
+
+  - A **property** is any predicate that applies to behaviors.  We will call these **Lamport properties**
+    since *property* is already such a general term.  You can apply a *Lamport property* to a *trace* by first
+    turning the *trace* into a *behavior* per the previous bullet.
+
+  - A **safety property** is a Lamport property that once violated, cannot be “patched up.”  For example, “the
+    spaceship never left its planned flight path” is a safety property, while “the spaceship is on its planned
+    flight path” is not, because it could return to the planned flight path after having left it.
+
+  - A **liveness property** is a Lamport property that can potentially eventually be satisfied starting from
+    any trace.  For example, “the spaceship never left its planned flight path” is not a liveness property,
+    because a trace that violates that property can never be extended to one that satisfies it. Barring the
+    presence of infinite loops and recursions, “the program has terminated” is a liveness property.
+    
 - An **operation** is any executable program or program fragment, from an integer addition to a whole application.
 
-
-- A **[safety property](https://en.wikipedia.org/wiki/Safety_and_liveness_properties)** is the *impossibility* of some occurrence *when an operation is used correctly*.  For example, this function upholds the safety property that nothing is printed to the console:
+- An operation *f* **upholds a Lamport property P iff, given a trace satisfying P whose final state satisfies
+  the preconditions of *f*, applying *f* produces a trace satisfying P.  For example, this function upholds the
+  safety property that nothing has ever been printed to the console, because given a trace where nothing has been
+  printed, a legal application of `identity` maintains that property:
 
   ```swift
   /// Returns `x`.
@@ -16,9 +35,9 @@
     return x
   }
   ```
-To be a safety property, it must *compose*.  That is, when any two operations *P* and *Q* uphold the property, so does *P* followed by *Q*. For example, freedom from data races is a safety property, but freedom from logical races is not, because when two consecutive non-racy mutations are composed into a larger mutation, another thread can observe the partially mutated state between the two steps.
 
-- A **[liveness property](https://en.wikipedia.org/wiki/Safety_and_liveness_properties)** is the *guarantee* of some occurrence when an operation is used correctly.  For example, this function upholds the liveness property that it eventually returns:
+  And this function upholds the liveness property that the program has terminated, because given a trace where
+  termination is reachable, a legal application of `identity2` maintains that property:
 
   ```swift
   /// Returns `x`.
@@ -30,19 +49,21 @@ To be a safety property, it must *compose*.  That is, when any two operations *P
   }
   ```
 
-- An ***X* safe operation** upholds some safety property *X* **even if preconditions are violated**. [^qualification]  For example, when `a` is an array, `a[0] = 3` never modifies a variable not mentioned in the expression, even if `a` is empty (which violates the precondition of `a[0]`).  We might say that the operation is “expression-mutation safe.” 
+- The upholding of any Lamport property *composes*.  That is, when any two operations *f* and *g* uphold the property, so does *f* followed by *g*.
+
+- An ***X* safe operation** upholds some safety property *X* **even if preconditions are violated**. [^qualification]  For example, when `a` is an array with bounds checking, `a[0] = 3` never modifies a variable not mentioned in the expression, even if `a` is empty (which violates the precondition of `a[0]`).  We might say that the operation is “expression-mutation safe.” 
 
 [^qualification]: note this important distinction—an operation can uphold the memory safety property but not be memory-safe by this definition, because the former depends on preconditions being satisfied but the latter does not.
 
 - An ***X* safe language** is one where all primitive operations are *X safe*.  It follows that all non-primitive operations—and all possible programs in the language—are *X safe*. A language subset, such as “Swift programs in which no identifier contains the substring `Unsafe` or `unsafe`,” can be considered a language.
 
-- **Memory safety**: the property that invalid memory operations such as out-of-bounds accesses and use-after-free do not occur.
+- **Memory safety** is the property that invalid memory operations such as out-of-bounds accesses and use-after-free have not occurred.
 
-- **Type safety**: the property that an instance of one type is never accessed as an instance of another type.
+- **Type safety** is the property that an instance of one type has never been accessed as an instance of another type.
 
-- **Thread safety**: the property that a data race does not occur. Sometimes “thread safe” is used to mean that, additionally, deadlock does not occur. Freedom from deadlock can also be viewed as part of a liveness property guaranteeing forward progress. 
+- **Thread safety** is the property that a data race has never occurred. Sometimes “thread safe” is used to mean that, additionally, deadlock has not occurred. Freedom from deadlock can also be viewed as part of a liveness property guaranteeing forward progress. 
 
-- **Data race safety**: the property that a data race does not occur (explicitly excluding freedom from deadlock as a constraint).
+- **Data race safety** is the property that a data race does not occur (explicitly excluding freedom from deadlock as a constraint).
 
 - **Undefined behavior** is not bounded by any constraints and thus nullifies every safety property.  An operation that can have undefined behavior, or a language that includes such an operation, is never *X* safe for any *X*.  
 
