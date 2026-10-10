@@ -54,6 +54,8 @@
 
 - An ***X* safe operation** upholds some safety property *X* **even if preconditions are violated**. [^qualification]  For example, when `a` is an array with bounds checking, `a[0] = 3` never modifies a variable not mentioned in the expression, even if `a` is empty (which violates the precondition of `a[0]`).  We might say that the operation is “expression-mutation safe.” 
 
+- Trivially, *X*-safety composes for any *X*.
+
 [^qualification]: note this important distinction—an operation can uphold the memory safety property but not be memory-safe by this definition, because the former depends on preconditions being satisfied but the latter does not.
 
 - An ***X* safe language** is one where all primitive operations are *X safe*.  It follows that all non-primitive operations—and all possible programs in the language—are *X safe*. A language subset, such as “Swift programs in which no identifier contains the substring `Unsafe` or `unsafe`,” can be considered a language.
