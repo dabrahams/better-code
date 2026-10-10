@@ -3,8 +3,9 @@
 - **Safety** in engineering is the prevention of harm through system design.
 
 - Per [Leslie Lamport's authoritative definitions](https://lamport.azurewebsites.net/tla/safety-liveness.pdf):
+  
   - A **behavior** is an infinite sequence of states of some system.  We will call a finite sequence of such
-  - states a **trace**.  (You can turn a *trace* into a *behavior* by repeating its final state forever).
+    states a **trace**.  (You can turn a *trace* into a *behavior* by repeating its final state forever).
 
   - A **property** is any predicate that applies to behaviors.  We will call these **Lamport properties**
     since *property* is already such a general term.  You can apply a *Lamport property* to a *trace* by first
