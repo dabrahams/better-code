@@ -80,24 +80,3 @@
 - The **safe subset of a safe-by-default language** is a safe language.
 
 [^java-data-race]: Some languages, such as Java and JavaScript, define the behavior of data races, but in such a way as to be useless for most programming.
-
-
-----
-
-In Lamport’s framework, safety is defined semantically—as a prefix‑closed set of behaviors—but this definition alone does not guarantee compositionality under functional composition. As Abadi and Lamport show in Composing Specifications, and as later clarified by Abadi and Plotkin’s work on refinement‑preserving transformations, safety properties become compositional only when the functions involved are themselves safety‑preserving. In other words, from the fact that a safety property p holds for f(x) and for g(x), nothing follows about p(f(g(x))) unless f and g each preserve p. This distinction—emphasized in surveys such as Freiling and Santen’s work on compositional reasoning—makes clear that prefix‑closure characterizes the semantic nature of safety, while congruence under composition requires an additional structural assumption about the operators acting on behaviors.
-
-preserving.dvi
-https://lamport.org/pubs/abadi-preserving.pdf
-lamport.org
-
-
-99583.99626
-https://dlnext.acm.org/doi/pdf/10.1145/99583.99626
-dlnext.acm.org
-
-
-On the Composition of Compositional Reasoning | Springer Nature Link
-https://link.springer.com/chapter/10.1007/11786160_8
-link.springer.com
-
-https://lamport.azurewebsites.net/pubs/abadi-composing.pdf
