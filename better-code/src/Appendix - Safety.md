@@ -12,13 +12,15 @@
     turning the *trace* into a *behavior* per the previous bullet.
 
   - A **safety property** is a Lamport property that once violated, cannot be “patched up.”  For example, “the
-    spaceship never left its planned flight path” is a safety property, while “the spaceship is on its planned
-    flight path” is not, because it could return to the planned flight path after having left it.
+    spaceship is on its planned flight path” is not a safety property, because it could return to the planned
+    flight path after having left it.  “The spaceship never left its planned flight path” is a safety property,
+    because once the spaceship leaves its planned path, the property is false forever. 
 
   - A **liveness property** is a Lamport property that can potentially eventually be satisfied starting from
-    any trace.  For example, “the spaceship never left its planned flight path” is not a liveness property,
-    because a trace that violates that property can never be extended to one that satisfies it. Barring the
-    presence of infinite loops and recursions, “the program has terminated” is a liveness property.
+    any trace.  For example, “the CPU temperature has always been less than 100 Celsius” is not a liveness
+    property, because a trace that violates that property can never be extended to one that satisfies it.
+    ”The CPU temperature is 100 Celsius“ is a liveness property, because no matter the current temperature,
+    it can become 100 Celsius sometime in the future.
     
 - An **operation** is any executable program or program fragment, from an integer addition to a whole application.
 
